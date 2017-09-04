@@ -7,17 +7,36 @@ $email = htmlspecialchars($_POST['email']);
 $mdp = htmlspecialchars($_POST['password']);
 $mdp_verif = htmlspecialchars($_POST['password_verif']);
 
-if (isset($mdp)) {
+if (!isset($mdp)) {
     echo "Aucun mot de passe choisi";
 }
-elseif ($mdp.strlen < 8) {
+elseif (strlen($mdp) < 8) {
     echo "le mot de passe est trop court";
 }
 elseif ($mdp !== $mdp_verif ){
     echo "les mots de passe de correspondent pas";
+}
+else{
+    try    
+    {
+        $bdd = new PDO('mysql:host=localhost;dbname=annonces_pf;charset=utf8', 'root', 'admin');
+    }
+    catch (Exception $e)
+    {
+        die('Erreur : ' . $e->getMessage());
+    };
+    $sql = sprintf(
+        "INSERT INTO uti_utilisateur (uti_nom, uti_prenom, uti_age, uti_email, uti_pseudo,uti_password) 
+        VALUE ('%s', '%s', %d, '%s',  '%s',  '%s')", $nom, $prenom, $age, $email, $pseudo, $mdp
+    );
+    try    
+    {
+        $bdd->query($sql);
+        echo "<h1>Bienvenue ".$pseudo."</h1>";
+        echo "<p>Votre inscription c'est correctemnt effectué</p>";
+    }
+    catch (Exception $e)
+    {
+        die('Erreur : ' . $e->getMessage());
+    };
 };
-$sql = sprinf(
-    "INSERT INTO uti_utilisateur VALUE uti_nom = '%s', uti_prenom = '%s', uti_age = %d, 
-    uti_email = '%s', uti_pseudo,uti_password = '%s'", $nom, $prenom, $age, $email, $pseudo, $mdp
-);
-$bdd->query($sql);

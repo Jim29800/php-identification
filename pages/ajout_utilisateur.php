@@ -11,22 +11,25 @@
             </li>
             <li>
                 <label for="age" class="col-xs-6">Age :</label>
-                <input type="text" name="age" id="age">
+                <input type="number" name="age" id="age">
             </li>
             <li>
-                <label for="pseudo" class="col-xs-6">Pseudo :</label>
-                <input type="text" name="pseudo" id="pseudo">
+                <label for="pseudo" class="col-xs-6">Pseudo* :</label>
+                <input required type="text" name="pseudo" id="pseudo">
             </li>
                 <label for="email" class="col-xs-6">Email :</label>
                 <input type="email" name="email" id="email">
             <li>
             </li>
-                <label for="password" class="col-xs-6">Mot de passe :</label>
-                <input type="password" name="password" id="password">
+                <label for="password" class="col-xs-6">Mot de passe* :</label>
+                <input required type="password" name="password" id="password">
             </li>
             </li>
-                <label for="password_verif" class="col-xs-6">Mot de passe vérification:</label>
-                <input type="password" name="password_verif" id="password_verif">
+                <label for="password_verif" class="col-xs-6">Mot de passe vérification* :</label>
+                <input required type="password" name="password_verif" id="password_verif">
+            </li>
+            <li>
+                *Obligatoire
             </li>
             <li>
                 <br>
