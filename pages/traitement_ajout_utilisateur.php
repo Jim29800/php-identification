@@ -30,10 +30,10 @@ function verification($connexion, $mail, $pseudo){
     };
     foreach ($result_verif_mail as $key => $value) {
         if ($mail === $value['uti_email']){
-            echo "<h1>Email déjà utilisé !</h1><br>";
+            echo "Email déjà utilisé !<br>";
             return true;
         }elseif($pseudo === $value['uti_pseudo']){
-            echo "<h1>Pseudo déjà utilisé !</h1><br>";
+            echo "Pseudo déjà utilisé !<br>";
             return true;            
         }
     }
@@ -41,20 +41,21 @@ function verification($connexion, $mail, $pseudo){
 };
 //---------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------
-
+$erreur ="";
 if (!isset($mdp)) {
-    echo "Aucun mot de passe choisi";
+    $erreur .= "Aucun mot de passe choisi.<br>";
 }
-elseif (strlen($mdp) < 8) {
-    echo "le mot de passe est trop court";
+if (strlen($mdp) < 8) {
+    $erreur .= "Le mot de passe est trop court.<br>";
 }
-elseif ($mdp !== $mdp_verif ){
-    echo "les mots de passe de correspondent pas";
+if ($mdp !== $mdp_verif ){
+
+    $erreur .= "Les mots de passe de correspondent pas.<br>";
 }
-elseif (verification($bdd,$email,$pseudo)) {
-    echo "<h2>Erreur lors de la création du compte.</h2><br>";
+if (verification($bdd,$email,$pseudo)) {
+    $erreur .= "Erreur lors de la création du compte.<br>";
 }
-else{
+if (empty($erreur)){
     $mdp = password_hash($mdp,PASSWORD_DEFAULT);
     $sql = sprintf(
         "INSERT INTO uti_utilisateur (uti_nom, uti_prenom, uti_age, uti_email, uti_pseudo,uti_password) 
@@ -70,4 +71,6 @@ else{
     {
         die('Erreur : ' . $e->getMessage());
     };
+}else{
+    echo $erreur;
 };
