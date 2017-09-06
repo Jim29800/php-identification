@@ -17,6 +17,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="?p=ajout_utilisateur">Inscription</a></li>
+                    <li><a href="?p=connexion">Connexion / Déconnexion</a></li>                    
                 </ul>
 
             </div>

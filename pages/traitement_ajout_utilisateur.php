@@ -6,14 +6,7 @@ $age = htmlspecialchars($_POST['age']);
 $email = htmlspecialchars($_POST['email']);
 $mdp = htmlspecialchars($_POST['password']);
 $mdp_verif = htmlspecialchars($_POST['password_verif']);
-try    
-{
-    $bdd = new PDO('mysql:host=localhost;dbname=annonces_pf;charset=utf8', 'root', 'admin');
-}
-catch (Exception $e)
-{
-    die('Erreur : ' . $e->getMessage());
-};
+
 //---------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------
 
@@ -64,13 +57,14 @@ if (empty($erreur)){
     try    
     {
         $bdd->query($sql);
-        echo "<h1>Bienvenue ".$pseudo."</h1>";
-        echo "<p>Votre inscription c'est correctemnt effectué</p>";
+        $_SESSION["inscription"] = "<h1>Bienvenue ".$pseudo."</h1></br>"."<p>Votre inscription c'est correctemnt effectué</p>";
+        
     }   
     catch (Exception $e)
     {
         die('Erreur : ' . $e->getMessage());
     };
+    header("Location: index.php");
 }else{
-    echo $erreur;
+    $erreur;
 };
